@@ -1,0 +1,33 @@
+group 'io.github.ylbfdev'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    // https://mvnrepository.com/artifact/log4j/log4j
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/htmlunit-driver
+    compile group: 'org.seleniumhq.selenium', name: 'htmlunit-driver', version: '2.23.2'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.1'
+
+    // https://mvnrepository.com/artifact/net.iharder/base64
+    compile group: 'net.iharder', name: 'base64', version: '2.3.9'
+
+
+
+
+}
