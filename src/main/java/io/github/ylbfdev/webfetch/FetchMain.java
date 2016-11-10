@@ -1,11 +1,9 @@
 package io.github.ylbfdev.webfetch;
 
+import io.github.ylbfdev.webfetch.fetch.*;
 import org.apache.log4j.Logger;
 
 import io.github.ylbfdev.webfetch.constants.Constants;
-import io.github.ylbfdev.webfetch.fetch.Fetch520HD;
-import io.github.ylbfdev.webfetch.fetch.FetchSglsGameActivitys;
-import io.github.ylbfdev.webfetch.fetch.FetchXunLeiMi;
 import io.github.ylbfdev.webfetch.utils.ConfUtils;
 
 /**
@@ -15,7 +13,7 @@ public class FetchMain {
     private static final Logger Log = Logger.getLogger(FetchMain.class.getName());
 
     public enum FetchType {
-        SGLS, _520HD, XUNLEIMI
+        SGLS, _520HD, XUNLEIMI,QZONE,MARKET_LIST
     }
 
     public static void main(String[] args) {
@@ -33,6 +31,12 @@ public class FetchMain {
                     break;
                 case XUNLEIMI:
                     new FetchXunLeiMi().init();
+                    break;
+                case QZONE:
+                    new FetchQzone().init();
+                    break;
+                case MARKET_LIST:
+                    new FetchTaobaoMarketList().init();
                     break;
                 default:
                     Log.error("Unknown crawl type: " + Constants.TYPE + ".\n Exit...");
