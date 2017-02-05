@@ -13,7 +13,7 @@ public class FetchMain {
     private static final Logger Log = Logger.getLogger(FetchMain.class.getName());
 
     public enum FetchType {
-        SGLS, _520HD, XUNLEIMI,QZONE,MARKET_LIST
+        SGLS, _520HD, _2TUYS, XUNLEIMI, QZONE, MARKET_LIST, BTKITTY, TAOBAO,BAICHUAN
     }
 
     public static void main(String[] args) {
@@ -29,6 +29,9 @@ public class FetchMain {
                 case _520HD:
                     new Fetch520HD().init();
                     break;
+                case _2TUYS:
+                    new Fetch2tuys().init();
+                    break;
                 case XUNLEIMI:
                     new FetchXunLeiMi().init();
                     break;
@@ -37,6 +40,15 @@ public class FetchMain {
                     break;
                 case MARKET_LIST:
                     new FetchTaobaoMarketList().init();
+                    break;
+                case BTKITTY:
+                    new FetchBtkitty().init();
+                    break;
+                case TAOBAO:
+                    new FetchTaobao().init();
+                    break;
+                case BAICHUAN:
+                    new FetchBaichuanRepositories().init();
                     break;
                 default:
                     Log.error("Unknown crawl type: " + Constants.TYPE + ".\n Exit...");

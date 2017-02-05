@@ -13,6 +13,7 @@ public class Fetch520HD extends BaseFetch {
 	@Override
 	public void startFetch(WebDriver driver) {
 		driver.get("http://www.520hd.cc/view/play61837.html");
+		driver.get("http://www.520hd.cc/view/play59442.html");//锦绣未央
 		Log.info(driver.getTitle());
 		List<WebElement> driverElements = driver
 				.findElements(By.cssSelector("#detail-list > div > div > ul > li"));

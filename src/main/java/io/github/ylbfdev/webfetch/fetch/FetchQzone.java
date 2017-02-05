@@ -14,15 +14,11 @@ public class FetchQzone extends BaseFetch {
 
     @Override
     public void startFetch(WebDriver driver) {
-        driver.get("http://2577344878.qzone.qq.com/311");
+        //driver.get("https://h5.qzone.qq.com/mqzone/profile?hostuin=2577344878");
+        //driver.get("http://2577344878.qzone.qq.com/311");
+        driver.get("http://user.qzone.qq.com/2577344878/main");
         Log.info(driver.getTitle());
-        // div.f-info
-        List<WebElement> driverElements = driver.findElements(By.className("bgr3"));
-        for (WebElement webElement : driverElements) {
-            String down_url = webElement.findElement(By.cssSelector("a.c_tx.c_tx3.goDetail")).getAttribute("href");
-            String file_name = webElement.findElement(By.className("content")).getText();
-            Log.info(file_name + "\t,\t" + down_url);
-        }
+        getQM_Feeds_Iframe(driver, "QM_Feeds_Iframe");
     }
 
     public static void setScroll(WebDriver driver, int height) {
@@ -36,16 +32,32 @@ public class FetchQzone extends BaseFetch {
     }
 
 
-    private void getic2(WebDriver driver, String url) {
-        //driver.get("http://ic2.s21.qzone.qq.com/cgi-bin/feeds/feeds_html_module?i_uin=2577344878&i_login_uin=748034584&mode=4&previewV8=1&style=8&version=8&needDelOpr=true&transparence=true&hideExtend=false&showcount=10&MORE_FEEDS_CGI=http%3A%2F%2Fic2.s21.qzone.qq.com%2Fcgi-bin%2Ffeeds%2Ffeeds_html_act_all&refer=2&paramstring=os-winxp|100");
-        driver.get(url);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        Log.info(driver.getTitle());
-        //Log.info(driver.getPageSource());
-        // div.f-info
-        List<WebElement> driverElements = driver.findElements(By.className("f-item"));
+    /**
+     * 切换到Iframe内部
+     *
+     * @param dr        driver
+     * @param frameName Iframe ID名称
+     */
+    private void getQM_Feeds_Iframe(WebDriver dr, String frameName) {
+        //视频地址
+        String tencentVideoPlayerUrl = "http://imgcache.qq.com/tencentvideo_v1/player/TPQzone.swf" +
+                "?vid=%s" + // vid参数
+                "&skin=http://imgcache.qq.com/minivideo_v1/vd/res/skins/QzoneMiniSkin.swf" + // 皮肤
+                "&auto=1" + // 自动播放
+                "&mute=1" + // 有声没声
+                "&list=2" +
+                "&share=0" +
+                "&showend=0" +
+                "&showcfg=0" +
+                "&shownext=0";
+        // QM_Feeds_Iframe
+        WebDriver driver = dr.switchTo().frame(frameName);
+        Log.info(driver.getPageSource());
+        // f-s-i
+        List<WebElement> driverElements = driver.findElements(By.className("f-s-i"));
         for (WebElement webElement : driverElements) {
-            String down_url = webElement.findElement(By.className("f-video-wrap")).getAttribute("url3");
+            String vid = webElement.findElement(By.cssSelector("div > div.f-ct > div > div.img-box.f-video-wrap > a")).getAttribute("href");
+            String down_url = String.format(tencentVideoPlayerUrl, vid.substring(vid.lastIndexOf("/") + 1));
             String file_name = webElement.findElement(By.className("f-info")).getText();
             Log.info(file_name + "\t,\t" + down_url);
         }

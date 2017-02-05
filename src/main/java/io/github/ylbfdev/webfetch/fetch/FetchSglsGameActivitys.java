@@ -18,6 +18,7 @@ public class FetchSglsGameActivitys extends BaseFetch {
         String pageStr = driver.findElement(By.cssSelector("#fd_page_top > div > label > span")).getAttribute("title");
         Log.info(pageStr);
         int totalPage = Integer.parseInt(pageStr.replaceAll("[^0-9]", ""));
+        totalPage = 1;
         for (int i = 0; i < totalPage; i++) {
             Log.info(driver.getCurrentUrl());
             List<WebElement> driverElements = driver
