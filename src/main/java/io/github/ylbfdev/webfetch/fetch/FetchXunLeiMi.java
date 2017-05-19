@@ -12,7 +12,8 @@ public class FetchXunLeiMi extends BaseFetch {
 
 	@Override
 	public void startFetch(WebDriver driver) {
-		driver.get("http://www.xunleimi.com/huayudianshiju/27806/");
+		//driver.get("http://www.xunleimi.com/huayudianshiju/27806/");//大都市小爱情
+		driver.get("http://www.xunleimi.com/huayudianshiju/19494/");//神医喜来乐
 		Log.info(driver.getTitle());
 		List<WebElement> driverElements = driver.findElements(By.cssSelector("#xun1 > table > tbody > tr > td > a"));
 		for (WebElement webElement : driverElements) {

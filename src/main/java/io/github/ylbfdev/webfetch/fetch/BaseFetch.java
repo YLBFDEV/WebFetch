@@ -20,10 +20,14 @@ public abstract class BaseFetch {
             return;
         }
         // 开始抓取
-        startFetch(driver);
-        driver.close();
-
-
+        try {
+            startFetch(driver);
+        } catch (Exception e) {
+            Log.info(driver.getPageSource());
+            e.printStackTrace();
+        } finally {
+            driver.close();
+        }
         try {
             Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
             driver.quit();
@@ -40,5 +44,5 @@ public abstract class BaseFetch {
      *
      * @param driver
      */
-    public abstract void startFetch(WebDriver driver);
+    public abstract void startFetch(WebDriver driver) throws InterruptedException;
 }
